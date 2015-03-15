@@ -18,6 +18,7 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         Movie.hasMany(models.Torrent)
+        Movie.hasMany(models.Category)
       }
     }
   });

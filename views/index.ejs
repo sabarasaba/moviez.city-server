@@ -7,33 +7,5 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
-
-    <h2>Creating a new user</h2>
-
-    <form action="/users/create" method="post">
-      <input type="text" name="username"/>
-      <input type="submit"/>
-    </form>
-
-    <ul>
-    <% users.forEach(function(user){ %>
-      <li>
-        <%= user.username %> <a href="/users/<%= user.id %>/destroy">Delete</a>
-        <ul>
-          <li>
-            <h2>creating a new task</h2>
-
-            <form action="/users/<%= user.id %>/tasks/create" method="post">
-              <input type="text" name="title"/>
-              <input type="submit"/>
-            </form>
-          </li>
-          <% user.Tasks.forEach(function(task) { %>
-            <li><%= task.title %> <a href="/users/<%= user.id %>/tasks/<%= task.id%>/destroy">Delete</a></li>
-          <% }) %>
-        </ul>
-      </li>
-    <% }) %>
-    </ul>
   </body>
 </html>
