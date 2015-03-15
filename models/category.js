@@ -6,9 +6,10 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        Torrent.belongsTo(models.Movie);
+        Category.belongsTo(models.Movie);
       }
     }
   });
+
   return Category;
 };

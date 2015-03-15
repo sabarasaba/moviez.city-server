@@ -19,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         Movie.hasMany(models.Torrent);
         Movie.hasMany(models.Category);
-        Movie.hasMany(models.MovieDetails);
+        Movie.hasOne(models.MovieDetails);
       }
     }
   });
