@@ -1,33 +1,14 @@
-'use strict';
-
+"use strict";
 module.exports = {
   up: function(migration, DataTypes, done) {
-    migration.createTable('Torrent', {
+    migration.createTable("Categories", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: DataTypes.INTEGER
       },
-      url: {
-        type: DataTypes.STRING
-      },
-      hash: {
-        type: DataTypes.STRING
-      },
-      quality: {
-        type: DataTypes.STRING
-      },
-      seeds: {
-        type: DataTypes.INTEGER
-      },
-      peers: {
-        type: DataTypes.INTEGER
-      },
-      size: {
-        type: DataTypes.STRING
-      },
-      size_bytes: {
+      name: {
         type: DataTypes.STRING
       },
       createdAt: {
@@ -41,6 +22,6 @@ module.exports = {
     }).done(done);
   },
   down: function(migration, DataTypes, done) {
-    migration.dropTable('Torrent').done(done);
+    migration.dropTable("Categories").done(done);
   }
 };
