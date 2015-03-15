@@ -8,8 +8,7 @@ module.exports = function(sequelize, DataTypes) {
     seeds: DataTypes.INTEGER,
     peers: DataTypes.INTEGER,
     size: DataTypes.STRING,
-    size_bytes: DataTypes.STRING,
-    uploaded: DataTypes.DATE,
+    size_bytes: DataTypes.STRING
   }, {
     classMethods: {
       associate: function(models) {

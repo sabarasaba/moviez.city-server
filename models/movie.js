@@ -2,9 +2,10 @@
 
 module.exports = function(sequelize, DataTypes) {
   var Movie = sequelize.define('Movie', {
+    _id: DataTypes.INTEGER,
     url: DataTypes.STRING,
     imdb_code: DataTypes.STRING,
-    title: DataTypes.STRING,
+    title: {type: DataTypes.STRING, unique: true},
     title_long: DataTypes.STRING,
     year: DataTypes.INTEGER,
     rating: DataTypes.FLOAT,
@@ -12,9 +13,7 @@ module.exports = function(sequelize, DataTypes) {
     language: DataTypes.STRING,
     mpa_rating: DataTypes.STRING,
     small_cover_image: DataTypes.STRING,
-    medium_cover_image: DataTypes.STRING,
-    yt_trailer_code: DataTypes.STRING,
-    uploaded: DataTypes.DATE
+    medium_cover_image: DataTypes.STRING
   }, {
     classMethods: {
       associate: function(models) {
