@@ -5,28 +5,36 @@ import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 
-import routes from './routes/index';
-import movies from './routes/movies';
-import lists from './routes/lists';
+import controllers from './controllers';
 
 let app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+//CORS middleware
+let allowCrossDomain = (req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+    next();
+};
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
+// app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(require('stylus').middleware(path.join(__dirname, 'public')));
+app.use(allowCrossDomain);
+
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/movies', movies);
-app.use('/lists', lists);
+
+// Instanciate the API controllers.
+// app.use('/api', api);
+controllers.load(app);
+
+
 
 
 // catch 404 and forward to error handler
@@ -36,12 +44,10 @@ app.use((req, res, next) => {
   next(err);
 });
 
-// error handlers
-
-// development error handler
-// will print stacktrace
+// ERROR HANDLER: development
 if (app.get('env') === 'development') {
   app.use((err, req, res, next) => {
+    console.log(err);
     res.status(err.status || 500);
     res.json({
       message: err.message,
@@ -50,8 +56,7 @@ if (app.get('env') === 'development') {
   });
 }
 
-// production error handler
-// no stacktraces leaked to user
+// ERROR HANDLER: production
 app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.json({
