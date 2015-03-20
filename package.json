@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test": "mocha tests/*.js -w --reporter min --compilers js:babel/register"
   },
   "dependencies": {
     "bluebird": "^2.9.14",
@@ -20,5 +21,11 @@
     "sequelize": "^2.0.4",
     "serve-favicon": "~2.2.0",
     "stylus": "0.42.3"
+  },
+  "devDependencies": {
+    "babel": "^4.7.16",
+    "chai": "^2.1.2",
+    "mocha": "^2.2.1",
+    "superagent": "^1.1.0"
   }
 }
