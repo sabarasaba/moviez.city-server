@@ -32,14 +32,23 @@ router.get('/', (req, res, next) => {
   });
 
   res.json({
-    lists: sanitizedLists
+    'lists': sanitizedLists
   });
 });
 
 router.get('/:movie_id', (req, res, next) => {
-  res.json({
-    'list': _.where(lists, {id: parseInt(req.params.movie_id, 10)})
-  });
+  const list = _.where(lists, {id: parseInt(req.params.movie_id, 10)})[0];
+
+  if (_.isUndefined(list)) {
+    res.status(500);
+    res.json({
+      message: 'That id doesnt exist'
+    });
+  } else {
+    res.json({
+      'data': list
+    });
+  }
 });
 
 
