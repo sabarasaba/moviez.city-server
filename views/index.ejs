@@ -2,10 +2,74 @@
 <html>
   <head>
     <title><%= title %></title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <nav class="main-nav">
+      <div class="logo">
+        M
+      </div>
+
+      <ul class="items-top">
+        <li>
+          <i class="fa fa-random"></i>
+        </li>
+        <li>
+          <i class="fa fa-search"></i>
+        </li>
+        <li>
+          <a href="#" data-effect="st-effect-14">
+            <i class="fa fa-bars"></i>
+          </a>
+        </li>
+        <li>
+          <i class="fa fa-sort-amount-asc"></i>
+        </li>
+      </ul>
+      <ul class="items-bottom">
+        <li>
+          <i class="fa fa-bell"></i>
+        </li>
+        <li>
+          <i class="fa fa-cog"></i>
+        </li>
+      </ul>
+    </nav>
+
+    <div id="st-container" class="st-container">
+      <!-- content push wrapper -->
+      <div class="st-pusher">
+        <!--
+          example menus
+          these menus will be under the push wrapper
+        -->
+        <nav class="st-menu st-effect-14" id="menu-14">
+          <ul class="sidebar-menu">
+            <li><a class="icon icon-data" href="#">New releases</a></li>
+            <li><a class="icon icon-location" href="#">Popular</a></li>
+            <li><a class="icon icon-study" href="#">Recomended</a></li>
+            <li><a class="icon icon-study" href="#">By Genre</a></li>
+
+            <li><a class="icon icon-data" href="#">Action Adventure</a></li>
+            <li><a class="icon icon-location" href="#">Anime</a></li>
+            <li><a class="icon icon-study" href="#">Children and Family</a></li>
+          </ul>
+        </nav>
+
+        <div class="st-content"><!-- this is the wrapper for the content -->
+          <div class="st-content-inner"><!-- extra div for emulating position:fixed of the menu -->
+            <h1 class="title"> <%= movies.length %> movies</h1>
+            <div class="flexi">
+              <% movies.forEach(function(movie) { %>
+                <img src="<%= movie.medium_cover_image %>" alt="">
+              <% }); %>
+            </div> <!-- Flexi container! -->
+          </div><!-- /st-content-inner -->
+        </div><!-- /st-content -->
+      </div><!-- /st-pusher -->
+    </div><!-- /st-container -->
   </body>
 </html>
