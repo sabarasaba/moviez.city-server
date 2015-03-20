@@ -4,9 +4,9 @@ var Promise = require('bluebird');
 var models  = require('./models');
 
 
-var fetchMovie = function(options) {
+var fetchMovie = function(url, options) {
   return new Promise(function(resolve, reject) {
-    request({url: 'https://yts.re/api/v2/list_movies.json', qs: options}, function(err, res, body) {
+    request({url: url, qs: options}, function(err, res, body) {
       if (!err && res.statusCode === 200) {
         resolve(JSON.parse(body));
       } else {
@@ -60,7 +60,7 @@ var saveDownloads = function(movie) {
 
 var fetchOneMovie = function(page) {
   return new Promise(function(resolve, reject) {
-    fetchMovie({
+    fetchMovie('https://yts.re/api/v2/list_movies.json', {
       minimum_rating: 5,
       limit: 10,
       page: page
@@ -80,7 +80,7 @@ var fetchOneMovie = function(page) {
         }
       }).then(function(data) {
         console.log('All done !');
-        resolve();
+        resolve(_.pluck(res.data.movies, 'id'));
       }).catch(function(err) {
         console.log(err);
         console.log('Couldnt insert some movie');
@@ -94,10 +94,31 @@ var fetchOneMovie = function(page) {
 };
 
 
+var fetchOneMovieDetail = function(id) {
+  return new Promise(function(resolve, reject) {
+    fetchMovie('https://yts.re/api/v2/movie_details.json', {
+      movie_id: id,
+      with_images: true,
+      with_cast: true
+    }).then(function(res) {
+      console.log('Details fetched for movie => ' + res.data.title_long);
+      resolve();
+    }).catch(function(err) {
+      console.log(err);
+      reject(err);
+    });
+  });
+};
+
+
 var fetchFromPages = [1, 2, 3, 4, 5, 6, 7, 8 ,9, 10, 11, 12, 13, 14, 15];
 
 Promise.map(fetchFromPages, function(page) {
   return fetchOneMovie(page);
+}).then(function(movieIds) {
+  return Promise.map(_.flatten(movieIds), function(id) {
+    return fetchOneMovieDetail(id);
+  });
 }).then(function() {
   console.log('Fetched everything !');
 }).catch(function(err) {
