@@ -10,7 +10,7 @@ var fetchMovie = function(url, options) {
       if (!err && res.statusCode === 200) {
         resolve(JSON.parse(body));
       } else {
-        console.log(res.statusCode);
+        console.log('ERROR FETCHING => ' + res.statusCode);
         reject(err);
       }
     });
@@ -63,7 +63,7 @@ var fetchOneMovie = function(page) {
   return new Promise(function(resolve, reject) {
     fetchMovie('https://yts.im/api/v2/list_movies.json', {
       minimum_rating: 5,
-      limit: 20,
+      limit: 10,
       page: page
     }).then(function(res) {
 
@@ -209,7 +209,8 @@ var fetchOneMovieDetail = function(id) {
     .then(function(res) {
       console.log('Details stored for movie => ' + res.data.title_long);
       resolve();
-    }).catch(function(err, e, s) {
+    }).catch(function(err) {
+      console.log(err);
       console.log('Error storing a movie details');
       resolve();
     });
@@ -217,7 +218,7 @@ var fetchOneMovieDetail = function(id) {
 };
 
 
-var fetchFromPages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+var fetchFromPages = [1, 2, 3, 4, 5, 6, 7, 8 ,9, 10, 11, 12, 13, 14, 15];
 
 Promise.map(fetchFromPages, function(page) {
   return fetchOneMovie(page);
