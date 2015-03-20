@@ -1,12 +1,12 @@
-var models  = require('../models');
-var express = require('express');
-var router = express.Router();
+import models from '../models';
+import express from 'express';
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
+let router = express.Router();
+
+router.get('/', (req, res, next) => {
   models.Movie.findAll({
         include: [ models.Torrent ]
-      }).then(function(movies) {
+      }).then(movies => {
         res.render('index', {
           title: 'page title',
           movies: movies
@@ -14,4 +14,4 @@ router.get('/', function(req, res, next) {
       });
 });
 
-module.exports = router;
+export default router;

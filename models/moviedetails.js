@@ -1,13 +1,11 @@
-'use strict';
-
-module.exports = function(sequelize, DataTypes) {
-  var MovieDetails = sequelize.define('MovieDetails', {
+export default (sequelize, DataTypes) => {
+  let MovieDetails = sequelize.define('MovieDetails', {
     description_intro: DataTypes.TEXT,
     description_full: DataTypes.TEXT,
     yt_trailer_code: DataTypes.STRING
   }, {
     classMethods: {
-      associate: function(models) {
+      associate: (models) => {
         MovieDetails.belongsTo(models.Movie);
         MovieDetails.hasOne(models.MovieArtwork);
         MovieDetails.hasMany(models.Director);

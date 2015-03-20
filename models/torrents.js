@@ -1,7 +1,5 @@
-'use strict';
-
-module.exports = function(sequelize, DataTypes) {
-  var Torrent = sequelize.define('Torrent', {
+export default (sequelize, DataTypes) => {
+  let Torrent = sequelize.define('Torrent', {
     url: DataTypes.STRING,
     hash: DataTypes.STRING,
     quality: DataTypes.STRING,
@@ -11,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
     size_bytes: DataTypes.STRING
   }, {
     classMethods: {
-      associate: function(models) {
+      associate: (models) => {
         Torrent.belongsTo(models.Movie);
       }
     }

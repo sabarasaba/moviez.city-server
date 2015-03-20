@@ -1,10 +1,11 @@
-var models  = require('../models');
-var express = require('express');
-var _       = require('lodash');
-var router  = express.Router();
+import models from '../models';
+import express from 'express';
+import _ from 'lodash';
+
+let router = express.Router();
 
 
-var lists = [
+const lists = [
   {
     id: 1,
     title: '5 Bests Movies of March 2015',
@@ -25,8 +26,8 @@ var lists = [
   }
 ];
 
-router.get('/', function(req, res, next) {
-  var sanitizedLists = _.chain(lists).map(function(el) {
+router.get('/', (req, res, next) => {
+  const sanitizedLists = _.chain(lists).map(el => {
     return _.omit(el, 'movies');
   });
 
@@ -35,12 +36,11 @@ router.get('/', function(req, res, next) {
   });
 });
 
-
-router.get('/:movie_id', function(req, res, next) {
+router.get('/:movie_id', (req, res, next) => {
   res.json({
     'list': _.where(lists, {id: parseInt(req.params.movie_id, 10)})
   });
 });
 
 
-module.exports = router;
+export default router;

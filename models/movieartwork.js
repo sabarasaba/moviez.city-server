@@ -1,7 +1,5 @@
-'use strict';
-
-module.exports = function(sequelize, DataTypes) {
-  var MovieArtwork = sequelize.define('MovieArtwork', {
+export default (sequelize, DataTypes) => {
+  let MovieArtwork = sequelize.define('MovieArtwork', {
     background_image: DataTypes.STRING,
     small_cover_image: DataTypes.STRING,
     medium_cover_image: DataTypes.STRING,
@@ -14,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
     large_screenshot_image3: DataTypes.STRING
   }, {
     classMethods: {
-      associate: function(models) {
+      associate: (models) => {
         MovieArtwork.belongsTo(models.MovieDetails);
       }
     }

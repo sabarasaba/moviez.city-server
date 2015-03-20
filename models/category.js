@@ -1,11 +1,9 @@
-'use strict';
-
-module.exports = function(sequelize, DataTypes) {
-  var Category = sequelize.define('Category', {
+export default (sequelize, DataTypes) => {
+  let Category = sequelize.define('Category', {
     name: DataTypes.STRING
   }, {
     classMethods: {
-      associate: function(models) {
+      associate: (models) => {
         Category.belongsTo(models.Movie);
       }
     }

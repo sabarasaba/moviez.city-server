@@ -1,7 +1,5 @@
-'use strict';
-
-module.exports = function(sequelize, DataTypes) {
-  var Movie = sequelize.define('Movie', {
+export default (sequelize, DataTypes) => {
+  let Movie = sequelize.define('Movie', {
     _id: DataTypes.INTEGER,
     url: DataTypes.STRING,
     imdb_code: DataTypes.STRING,
@@ -16,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
     medium_cover_image: DataTypes.STRING
   }, {
     classMethods: {
-      associate: function(models) {
+      associate: (models) => {
         Movie.hasMany(models.Torrent);
         Movie.hasMany(models.Category);
         Movie.hasOne(models.MovieDetails);
