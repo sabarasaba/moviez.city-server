@@ -40,7 +40,7 @@ var saveOneDownload = function(download) {
   return new Promise(function(resolve, reject) {
     models.Torrent.create(download.torrent).then(function(torrent) {
       torrent.setMovie(download.dbObject).then(function() {
-        resolve(true);
+        resolve(download);
       }).catch(function(err) {
         reject(err);
       });
@@ -53,8 +53,27 @@ var saveOneDownload = function(download) {
 var saveDownloads = function(movie) {
   return Promise.map(movie.torrents, function(download) {
     return saveOneDownload({
+      movie: movie,
       torrent: download,
       dbObject: movie.dbObject
+    });
+  });
+};
+
+var saveCategory = function(data) {
+  return new Promise(function(resolve, reject) {
+    Promise.map(data[0].movie.genres, function(genre) {
+      models.Category.create({
+        name: genre
+      }).then(function(category) {
+        category.setMovie(data[0].dbObject).then(function() {
+          resolve(data);
+        }).catch(function(err) {
+          reject(err);
+        });
+      }).catch(function(err) {
+        reject(err)
+      });
     });
   });
 };
@@ -79,8 +98,14 @@ var fetchOneMovie = function(page) {
         } else {
           return current;
         }
+      }).map(function(movie) {
+        if (movie) {
+          return saveCategory(movie);
+        } else {
+          return current;
+        }
       }).then(function(data) {
-        console.log('All done !');
+        console.log('List fetching succeded !');
         resolve(_.pluck(res.data.movies, 'id'));
       }).catch(function(err) {
         console.log(err);
@@ -204,10 +229,13 @@ var fetchOneMovieDetail = function(id) {
       with_cast: true
     }).then(storeMovieDetails)
     .then(storeMovieArtwork)
-    .then(storeMovieDirectors)
-    .then(storeMovieActors)
+    .then(function(response) {
+      return Promise.all(storeMovieDirectors(response), storeMovieActors(response)).then(function(res) {
+        return true;
+      });
+    })
     .then(function(res) {
-      console.log('Details stored for movie => ' + res.data.title_long);
+      console.log('Movie details stored !');
       resolve();
     }).catch(function(err) {
       console.log(err);
@@ -218,7 +246,7 @@ var fetchOneMovieDetail = function(id) {
 };
 
 
-var fetchFromPages = [1, 2, 3, 4, 5, 6, 7, 8 ,9, 10, 11, 12, 13, 14, 15];
+var fetchFromPages = [4];
 
 Promise.map(fetchFromPages, function(page) {
   return fetchOneMovie(page);

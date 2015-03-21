@@ -1,12 +1,12 @@
 import superagent from 'superagent';
 import {expect} from 'chai';
 
-const url = 'http://localhost:3000/api';
+const url = 'http://localhost:3000/api/lists';
 
 describe('Lists Api', () => {
 
   it('Retrieves a collection of lists', (done) => {
-    superagent.get(url + '/lists')
+    superagent.get(url)
       .end((e, res) => {
         expect(e).to.equal(null);
         expect(res.status).to.equal(200);
@@ -18,7 +18,7 @@ describe('Lists Api', () => {
   });
 
   it('Retrieves a single list', (done) => {
-    superagent.get(url + '/lists/1')
+    superagent.get(url + '/1')
       .end((e, res) => {
         expect(e).to.equal(null);
         expect(res.status).to.equal(200);
@@ -30,7 +30,7 @@ describe('Lists Api', () => {
   });
 
   it('Should fail if a single list doesnt exist', (done) => {
-    superagent.get(url + '/lists/99999')
+    superagent.get(url + '/99999')
       .end((e, res) => {
         expect(e).not.to.be.null;
         expect(e.status).to.equal(500);

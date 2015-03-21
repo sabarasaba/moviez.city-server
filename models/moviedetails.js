@@ -1,5 +1,6 @@
 export default (sequelize, DataTypes) => {
   let MovieDetails = sequelize.define('MovieDetails', {
+    _id: {type: DataTypes.INTEGER, unique: true},
     description_intro: DataTypes.TEXT,
     description_full: DataTypes.TEXT,
     yt_trailer_code: DataTypes.STRING
