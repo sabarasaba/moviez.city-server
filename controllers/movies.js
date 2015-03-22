@@ -35,7 +35,7 @@ router.get('/', (req, res) => {
 router.get('/:movie_id', (req, res) => {
 
   models.MovieDetails.findOne({
-    include: [models.MovieArtwork, models.Director, models.Actor],
+    include: [models.MovieArtwork, models.Director, models.Actor, models.Movie],
     where: {
       'MovieId': req.params.movie_id
     }
