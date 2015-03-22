@@ -45,8 +45,7 @@ router.get('/:movie_id', (req, res) => {
         'MovieId': movie.MovieId
       }
     }).then(torrent => {
-      let data = movie.dataValues;
-      data.Torrents = torrent;
+      movie.dataValues.Torrents = torrent;
 
       res.json(movie.dataValues);
     });
