@@ -6,14 +6,18 @@ let router = express.Router();
 
 const defaults = {
   limit: 10,
-  page: 1
+  page: 1,
+  category: null
 };
 
 router.get('/', (req, res) => {
   let params = _.defaults(req.query, defaults);
+  let category = params.category ? {'name': params.category} : {};
 
   models.Movie.findAndCountAll({
-        include: [ models.Torrent ],
+        include: [ models.Torrent,
+          { model: models.Category, where: category }
+        ],
         offset: (params.limit * params.page) - params.limit,
         limit: params.limit
       }).then(movies => {
