@@ -32,4 +32,28 @@ router.get('/', (req, res) => {
       });
 });
 
+router.get('/:movie_id', (req, res) => {
+
+  models.MovieDetails.findOne({
+    include: [models.MovieArtwork, models.Director, models.Actor],
+    where: {
+      'MovieId': req.params.movie_id
+    }
+  }).then(movie => {
+    models.Torrent.findAll({
+      where: {
+        'MovieId': movie.MovieId
+      }
+    }).then(torrent => {
+      let data = movie.dataValues;
+      data.Torrents = torrent;
+
+      res.json(movie.dataValues);
+    });
+  }).catch(err => {
+    res.json(err);
+  });
+
+});
+
 export default router;
