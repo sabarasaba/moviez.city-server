@@ -20,8 +20,8 @@ router.get('/', (req, res) => {
         res.json({
           data: {
             total: movies.count,
-            page: params.page,
-            limit: params.limit
+            page: parseInt(params.page, 10),
+            limit: parseInt(params.limit, 10)
           },
           movies: movies.rows
         });
