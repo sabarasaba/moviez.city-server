@@ -19,7 +19,8 @@ router.get('/', (req, res) => {
           { model: models.Category, where: category }
         ],
         offset: (params.limit * params.page) - params.limit,
-        limit: params.limit
+        limit: params.limit,
+        order: [['year', 'DESC']]
       }).then(movies => {
         res.json({
           data: {
