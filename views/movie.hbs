@@ -1,0 +1,37 @@
+<h1 class="title">{{Movie.title_long}}</h1>
+<div class="flexi">
+  <h3>Data: </h3>
+  <p>{{Movie.rating}}</p>
+  <p>{{Movie.runtime}}</p>
+  <p>{{Movie.language}}</p>
+  <p>{{Movie.year}}</p>
+  <p>{{Movie.mpa_rating}}</p>
+  <p>{{description_full}}</p>
+
+  <h3>Media: </h3>
+  <p>{{Movie.imdb_code}}</p>
+  <p>{{yt_trailer_code}}</p>
+  <img src="{{Movie.medium_cover_image}}" alt="">
+  <img src="{{MovieArtwork.background_image}}" alt="">
+
+  <h3>Actors: </h3>
+  <ul>
+    {{#each Actors}}
+      <li>{{name}} <img src="{{medium_image}}" alt=""></li>
+    {{/each}}
+  </ul>
+
+  <h3>Directors: </h3>
+  <ul>
+    {{#each Directors}}
+      <li>{{name}} <img src="{{medium_image}}" alt=""></li>
+    {{/each}}
+  </ul>
+
+  <h3>Torrents: </h3>
+  <ul>
+    {{#each Torrents}}
+      <li><a href="{{url}}">{{quality}} - {{size}} // S:{{seeds}} L:{{peers}} </a></li>
+    {{/each}}
+  </ul>
+</div>

@@ -1,0 +1,6 @@
+<h1 class="title">Im the movies list</h1>
+<div class="flexi">
+  {{#each movies}}
+    <a href="/movies/{{slug this.title}}?id={{this.id}}"><img src="{{this.medium_cover_image}}" alt=""></a>
+  {{/each}}
+</div>
