@@ -11,28 +11,7 @@ const defaults = {
 };
 
 router.get('/', (req, res) => {
-  let params = _.defaults(req.query, defaults);
-  let category = params.category ? {'name': params.category} : {};
-
-  models.Movie.findAndCountAll({
-        include: [ models.Torrent,
-          { model: models.Category, where: category }
-        ],
-        offset: (params.limit * params.page) - params.limit,
-        limit: params.limit,
-        order: [['year', 'DESC']]
-      }).then(movies => {
-        let data = {
-          data: {
-            total: movies.count,
-            page: parseInt(params.page, 10),
-            limit: parseInt(params.limit, 10)
-          },
-          movies: movies.rows
-        };
-
-        res.render('index', data);
-      });
+  res.render('index', {});
 });
 
 router.get('/movies/:movie_slug', (req, res) => {
