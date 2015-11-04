@@ -1,10 +1,10 @@
 {
   "development": {
-    "username": "root",
+    "username": "ignacio",
     "password": null,
-    "database": "moviezio_development",
+    "database": "moviezcity_dev",
     "host": "127.0.0.1",
-    "dialect": "mysql",
+    "dialect": "postgres",
     "logging": ""
   },
   "test": {
