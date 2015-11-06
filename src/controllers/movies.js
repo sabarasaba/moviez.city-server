@@ -15,11 +15,6 @@ router.get('/', (req, res) => {
   let category = params.category ? {'name': params.category} : {};
 
   models.Movie.findAndCountAll({
-        include: [
-          models.Categories,
-          models.Actors
-          // { model: models.Categories, where: categories }
-        ],
         offset: (params.limit * params.page) - params.limit,
         limit: params.limit,
         order: [['release_date', 'DESC']]
@@ -37,21 +32,16 @@ router.get('/', (req, res) => {
 
 router.get('/:movie_id', (req, res) => {
 
-  models.MovieDetails.findOne({
-    include: [models.MovieArtwork, models.Director, models.Actor, models.Movie],
+  models.Movie.findOne({
+    include: [
+      models.Categories,
+      models.Actors
+    ],
     where: {
-      'MovieId': req.params.movie_id
+      'id': req.params.movie_id
     }
   }).then(movie => {
-    models.Torrent.findAll({
-      where: {
-        'MovieId': movie.MovieId
-      }
-    }).then(torrent => {
-      movie.dataValues.Torrents = torrent;
-
-      res.json(movie.dataValues);
-    });
+    res.json(movie);
   }).catch(err => {
     res.json(err);
   });
