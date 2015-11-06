@@ -8,7 +8,6 @@ import controllers from './controllers';
 controllers.load(server);
 
 
-
 // ERROR HANDLER: development
 if (server.get('env') === 'development') {
   server.use((err, req, res, next) => {

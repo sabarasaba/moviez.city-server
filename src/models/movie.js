@@ -18,8 +18,8 @@ export default (sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate: (models) => {
-        Movie.hasMany(models.Category);
-        Movie.hasMany(models.Actor);
+        Movie.hasMany(models.Categories);
+        Movie.hasMany(models.Actors);
       }
     }
   });

@@ -2,7 +2,7 @@
 
 module.exports = {
   up: function(migration, DataTypes, done) {
-    migration.createTable("Actor", {
+    migration.createTable("Categories", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,15 +10,6 @@ module.exports = {
         type: DataTypes.INTEGER
       },
       name: {
-        type: DataTypes.STRING
-      },
-      link: {
-        type: DataTypes.STRING(400)
-      },
-      picture: {
-        type: DataTypes.STRING(400)
-      },
-      role: {
         type: DataTypes.STRING
       },
       createdAt: {
@@ -32,6 +23,6 @@ module.exports = {
     }).done(done);
   },
   down: function(migration, DataTypes, done) {
-    migration.dropTable("Actor").done(done);
+    migration.dropTable("Categories").done(done);
   }
 };

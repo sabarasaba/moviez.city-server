@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) => {
-  let Actor = sequelize.define('Actor', {
+  let Actors = sequelize.define('Actors', {
     name: DataTypes.STRING,
     link: DataTypes.STRING(400),
     picture: DataTypes.STRING(400),
@@ -7,10 +7,10 @@ export default (sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate: (models) => {
-        Actor.belongsTo(models.Movie);
+        Actors.belongsTo(models.Movie);
       }
     }
   });
 
-  return Actor;
+  return Actors;
 };
