@@ -4,7 +4,7 @@ export default (sequelize, DataTypes) => {
     poster_path: DataTypes.STRING,
     backdrop_path: DataTypes.STRING,
     original_language: DataTypes.STRING,
-    release_date: DataTypes.STRING,
+    release_date: DataTypes.DATE,
     overview: DataTypes.TEXT,
     plot: DataTypes.TEXT,
     rated: DataTypes.STRING,

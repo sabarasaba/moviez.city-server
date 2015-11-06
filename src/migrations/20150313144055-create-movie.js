@@ -23,7 +23,7 @@ module.exports = {
         type: DataTypes.STRING
       },
       release_date: {
-        type: DataTypes.STRING
+        type: DataTypes.DATE
       },
       overview: {
         type: DataTypes.TEXT

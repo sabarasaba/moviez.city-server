@@ -15,12 +15,14 @@ router.get('/', (req, res) => {
   let category = params.category ? {'name': params.category} : {};
 
   models.Movie.findAndCountAll({
-        include: [ models.Torrent,
-          { model: models.Category, where: category }
+        include: [
+          models.Categories,
+          models.Actors
+          // { model: models.Categories, where: categories }
         ],
         offset: (params.limit * params.page) - params.limit,
         limit: params.limit,
-        order: [['year', 'DESC']]
+        order: [['release_date', 'DESC']]
       }).then(movies => {
         res.json({
           data: {
