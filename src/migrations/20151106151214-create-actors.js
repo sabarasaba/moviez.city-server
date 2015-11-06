@@ -18,9 +18,6 @@ module.exports = {
       picture: {
         type: DataTypes.STRING(400)
       },
-      role: {
-        type: DataTypes.STRING
-      },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE
