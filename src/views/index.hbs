@@ -1,6 +1,6 @@
-<h1 class="title">Im the movies list</h1>
+<h1 class="title">Movies List</h1>
 <div class="flexi">
   {{#each movies}}
-    <a href="/movies/{{slug this.title}}?id={{this.id}}"><img src="{{this.medium_cover_image}}" alt=""></a>
+    <a href="/movies/{{slug this.title}}?id={{this.id}}"><img src="http://image.tmdb.org/t/p/w342/{{this.poster_path}}" alt=""></a>
   {{/each}}
 </div>

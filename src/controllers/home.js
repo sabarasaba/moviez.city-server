@@ -11,7 +11,15 @@ const defaults = {
 };
 
 router.get('/', (req, res) => {
-  res.render('index', {});
+  models.Movie.findAndCountAll({
+        offset: 0,
+        limit: 20,
+        order: [['release_date', 'DESC']]
+      }).then(movies => {
+        res.render('index', {
+          movies: movies.rows
+        });
+      });
 });
 
 router.get('/movies/:movie_slug', (req, res) => {
