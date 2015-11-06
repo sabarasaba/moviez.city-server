@@ -1,21 +1,24 @@
-"use strict";
+'use strict';
 
 module.exports = {
   up: function(migration, DataTypes, done) {
-    migration.createTable("MovieDetails", {
+    migration.createTable("Actor", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: DataTypes.INTEGER
       },
-      description_intro: {
-        type: DataTypes.TEXT
+      name: {
+        type: DataTypes.STRING
       },
-      description_full: {
-        type: DataTypes.TEXT
+      link: {
+        type: DataTypes.STRING(400)
       },
-      yt_trailer_code: {
+      picture: {
+        type: DataTypes.STRING(400)
+      },
+      role: {
         type: DataTypes.STRING
       },
       createdAt: {
@@ -29,6 +32,6 @@ module.exports = {
     }).done(done);
   },
   down: function(migration, DataTypes, done) {
-    migration.dropTable("MovieDetails").done(done);
+    migration.dropTable("Actor").done(done);
   }
 };

@@ -9,42 +9,51 @@ module.exports = {
         primaryKey: true,
         type: DataTypes.INTEGER
       },
-      _id: {
-        type: DataTypes.INTEGER
-      },
-      url: {
-        type: DataTypes.STRING
-      },
-      imdb_code: {
-        type: DataTypes.STRING
-      },
       title: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(400),
         unique: true
       },
-      title_long: {
+      poster_path: {
         type: DataTypes.STRING
       },
-      year: {
-        type: DataTypes.INTEGER
+      backdrop_path: {
+        type: DataTypes.STRING
       },
-      rating: {
-        type: DataTypes.FLOAT
+      original_language: {
+        type: DataTypes.STRING
+      },
+      release_date: {
+        type: DataTypes.STRING
+      },
+      overview: {
+        type: DataTypes.TEXT
+      },
+      plot: {
+        type: DataTypes.TEXT
+      },
+      rated: {
+        type: DataTypes.STRING
+      },
+      director: {
+        type: DataTypes.STRING
       },
       runtime: {
-        type: DataTypes.FLOAT
+        type: DataTypes.INTEGER
       },
-      language: {
-        type: DataTypes.STRING
+      imdb: {
+        type: Sequelize.JSON
       },
-      mpa_rating: {
-        type: DataTypes.STRING
+      awards: {
+        type: Sequelize.JSON
       },
-      small_cover_image: {
-        type: DataTypes.STRING
+      metacritic: {
+        type: DataTypes.INTEGER
       },
-      medium_cover_image: {
-        type: DataTypes.STRING
+      trailer: {
+        type: DataTypes.STRING(400)
+      },
+      download: {
+        type: DataTypes.JSON
       },
       createdAt: {
         allowNull: false,

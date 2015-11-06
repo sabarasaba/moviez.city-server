@@ -1,23 +1,25 @@
 export default (sequelize, DataTypes) => {
   let Movie = sequelize.define('Movie', {
-    _id: DataTypes.INTEGER,
-    url: DataTypes.STRING,
-    imdb_code: DataTypes.STRING,
-    title: {type: DataTypes.STRING, unique: true},
-    title_long: DataTypes.STRING,
-    year: DataTypes.INTEGER,
-    rating: DataTypes.FLOAT,
-    runtime: DataTypes.FLOAT,
-    language: DataTypes.STRING,
-    mpa_rating: DataTypes.STRING,
-    small_cover_image: DataTypes.STRING,
-    medium_cover_image: DataTypes.STRING
+    title: {type: DataTypes.STRING(400), unique: true},
+    poster_path: DataTypes.STRING,
+    backdrop_path: DataTypes.STRING,
+    original_language: DataTypes.STRING,
+    release_date: DataTypes.STRING,
+    overview: DataTypes.TEXT,
+    plot: DataTypes.TEXT,
+    rated: DataTypes.STRING,
+    director: DataTypes.STRING,
+    runtime: DataTypes.STRING,
+    imdb: DataTypes.JSON,
+    awards: DataTypes.JSON,
+    metacritic: DataTypes.INTEGER,
+    trailer: DataTypes.STRING(400),
+    download: DataTypes.JSON
   }, {
     classMethods: {
       associate: (models) => {
-        Movie.hasMany(models.Torrent);
         Movie.hasMany(models.Category);
-        Movie.hasOne(models.MovieDetails);
+        Movie.hasMany(models.Actor);
       }
     }
   });

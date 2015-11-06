@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
 module.exports = {
   up: function(migration, DataTypes, done) {
-    migration.createTable("Actors", {
+    migration.createTable("Category", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,15 +10,6 @@ module.exports = {
         type: DataTypes.INTEGER
       },
       name: {
-        type: DataTypes.STRING
-      },
-      character: {
-        type: DataTypes.STRING
-      },
-      small_image: {
-        type: DataTypes.STRING
-      },
-      medium_image: {
         type: DataTypes.STRING
       },
       createdAt: {
@@ -32,6 +23,6 @@ module.exports = {
     }).done(done);
   },
   down: function(migration, DataTypes, done) {
-    migration.dropTable("Actors").done(done);
+    migration.dropTable("Category").done(done);
   }
 };
