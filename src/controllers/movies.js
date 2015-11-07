@@ -15,6 +15,7 @@ router.get('/', (req, res) => {
   let category = params.category ? {'name': params.category} : {};
 
   models.Movie.findAndCountAll({
+        include: [ { model: models.Categories, where: category } ],
         offset: (params.limit * params.page) - params.limit,
         limit: params.limit,
         order: [['release_date', 'DESC']]

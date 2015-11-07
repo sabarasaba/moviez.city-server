@@ -1,15 +1,28 @@
-import superagent from 'superagent';
+import supertest from 'supertest';
 import {expect} from 'chai';
 import _ from 'lodash';
 
-const url = 'http://localhost:3000/api/categories';
+import App from '../src/app';
 
 describe('Categories Api', () => {
+  let server;
+
+  before ((done) => {
+    server = App.listen('3001', (err, result) => {
+      done(err);
+    });
+  });
+
+  after(() => {
+    server.close();
+  });
 
   it('Retrieves a collection of categories', (done) => {
-    superagent.get(url)
-      .end((e, res) => {
-        expect(e).to.equal(null);
+    supertest(App)
+      .get('/api/categories')
+      .expect('Content-Type', /json/)
+      .expect(200, (err, res) => {
+        expect(err).to.equal(null);
         expect(res.status).to.equal(200);
         expect(res.body).to.have.property('categories');
         expect(res.body).to.have.property('total');
@@ -21,8 +34,10 @@ describe('Categories Api', () => {
   });
 
   it('Categories collection doesnt have duplicates', (done) => {
-    superagent.get(url)
-      .end((e, res) => {
+    supertest(App)
+      .get('/api/categories')
+      .expect('Content-Type', /json/)
+      .expect(200, (err, res) => {
         let uniques = _.uniq(res.body.categories, true);
         expect(_.difference(uniques, res.body.categories)).to.be.empty;
 
@@ -31,8 +46,10 @@ describe('Categories Api', () => {
   });
 
   it('Categories are sorted', (done) => {
-    superagent.get(url)
-      .end((e, res) => {
+    supertest(App)
+      .get('/api/categories')
+      .expect('Content-Type', /json/)
+      .expect(200, (err, res) => {
         let iterator = (value, index, array) => {
           return index === 0 || String(array[index - 1]) <= String(value);
         };
@@ -44,23 +61,15 @@ describe('Categories Api', () => {
   });
 
   it('Shoudnt be able to post', (done) => {
-    superagent.post(url)
-      .end((e, res) => {
-        expect(e).not.to.be.null;
-        expect(e.status).to.equal(404);
-
-        done();
-      });
+    supertest(App)
+      .post('/api/categories')
+      .expect(404, done);
   });
 
   it('Shoudnt be able to delete', (done) => {
-    superagent.del(url)
-      .end((e, res) => {
-        expect(e).not.to.be.null;
-        expect(e.status).to.equal(404);
-
-        done();
-      });
+    supertest(App)
+      .del('/api/categories')
+      .expect(404, done);
   });
 
 });
