@@ -1,46 +1,65 @@
-import superagent from 'superagent';
+import supertest from 'supertest';
 import {expect} from 'chai';
 import _ from 'lodash';
 
-const url = 'http://localhost:3000/api/movies/1';
+import App from '../src/app';
 
 describe('Movies Api details', () => {
+  let server;
 
-  it('Should have the MovieArtwork attribute', (done) => {
-    superagent.get(url)
-      .end((e, res) => {
-        expect(res.body.MovieArtwork).not.to.be.empty;
-        expect(res.body.MovieArtwork).to.be.an('object');
+  before ((done) => {
+    server = App.listen('3001', (err, result) => {
+      done(err);
+    });
+  });
+
+  after(() => {
+    server.close();
+  });
+
+  it('Should have the a poster and a backdrop attribute', (done) => {
+    supertest(App)
+      .get('/api/movies/1')
+      .expect('Content-Type', /json/)
+      .expect(200, (err, res) => {
+        expect(res.body.poster_path).not.to.be.empty;
+        expect(res.body.backdrop_path).not.to.be.empty;
 
         done();
       });
   });
 
-  it('Should have the Directors attribute', (done) => {
-    superagent.get(url)
-      .end((e, res) => {
-        expect(res.body.Directors).not.to.be.empty;
-        expect(res.body.Directors).to.be.an('array');
+  it('Should have the Downloads attribute', (done) => {
+    supertest(App)
+      .get('/api/movies/1')
+      .expect('Content-Type', /json/)
+      .expect(200, (err, res) => {
+        expect(res.body.download).not.to.be.empty;
+        expect(res.body.download).to.be.an('object');
 
         done();
       });
   });
 
-  it('Should have the Movie attribute', (done) => {
-    superagent.get(url)
-      .end((e, res) => {
-        expect(res.body.Movie).not.to.be.empty;
-        expect(res.body.Movie).to.be.an('object');
+  it('Should have the Categories attribute', (done) => {
+    supertest(App)
+      .get('/api/movies/1')
+      .expect('Content-Type', /json/)
+      .expect(200, (err, res) => {
+        expect(res.body.Categories).not.to.be.empty;
+        expect(res.body.Categories).to.be.an('array');
 
         done();
       });
   });
 
-  it('Should have the Torrents attribute', (done) => {
-    superagent.get(url)
-      .end((e, res) => {
-        expect(res.body.Torrents).not.to.be.empty;
-        expect(res.body.Torrents).to.be.an('array');
+  it('Should have the Imdb attribute', (done) => {
+    supertest(App)
+      .get('/api/movies/1')
+      .expect('Content-Type', /json/)
+      .expect(200, (err, res) => {
+        expect(res.body.imdb).not.to.be.empty;
+        expect(res.body.imdb).to.be.an('object');
 
         done();
       });

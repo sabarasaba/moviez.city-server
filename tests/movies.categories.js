@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 import App from '../src/app';
 
-describe.only('Movies Api categories', () => {
+describe('Movies Api categories', () => {
   let server;
 
   before ((done) => {
@@ -19,7 +19,8 @@ describe.only('Movies Api categories', () => {
 
   it('Should return movies with the specified category', (done) => {
     supertest(App)
-      .get('/api/movies?category=Comedy')
+      .get('/api/movies')
+      .query({ category: 'Comedy' })
       .expect('Content-Type', /json/)
       .expect(200, (err, res) => {
         const nonComedyMovies = _.filter(res.body.movies, function(e) {

@@ -22,8 +22,6 @@ describe('Categories Api', () => {
       .get('/api/categories')
       .expect('Content-Type', /json/)
       .expect(200, (err, res) => {
-        expect(err).to.equal(null);
-        expect(res.status).to.equal(200);
         expect(res.body).to.have.property('categories');
         expect(res.body).to.have.property('total');
         expect(res.body.total).to.be.a('number');

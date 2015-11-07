@@ -1,14 +1,27 @@
-import superagent from 'superagent';
+import supertest from 'supertest';
 import {expect} from 'chai';
 import _ from 'lodash';
 
-const url = 'http://localhost:3000/api/movies';
+import App from '../src/app';
 
 describe('Movies Api pagination', () => {
+  let server;
+
+  before ((done) => {
+    server = App.listen('3001', (err, result) => {
+      done(err);
+    });
+  });
+
+  after(() => {
+    server.close();
+  });
 
   it('Should return 10 results on query', (done) => {
-    superagent.get(url)
-      .end((e, res) => {
+    supertest(App)
+      .get('/api/movies')
+      .expect('Content-Type', /json/)
+      .expect(200, (err, res) => {
         expect(res.body.movies.length).to.equal(10);
 
         done();
@@ -16,8 +29,10 @@ describe('Movies Api pagination', () => {
   });
 
   it('Should have a data attribute with pagination data', (done) => {
-    superagent.get(url)
-      .end((e, res) => {
+    supertest(App)
+      .get('/api/movies')
+      .expect('Content-Type', /json/)
+      .expect(200, (err, res) => {
         expect(res.body.data).to.exist;
         expect(res.body.data).to.be.an('object');
 
@@ -26,8 +41,10 @@ describe('Movies Api pagination', () => {
   });
 
   it('Should use defaults if no query params were provided', (done) => {
-    superagent.get(url)
-      .end((e, res) => {
+    supertest(App)
+      .get('/api/movies')
+      .expect('Content-Type', /json/)
+      .expect(200, (err, res) => {
         expect(res.body.data.page).to.equal(1);
         expect(res.body.data.limit).to.equal(10);
 
@@ -36,8 +53,10 @@ describe('Movies Api pagination', () => {
   });
 
   it('Should be able to limit queries with limit param', (done) => {
-    superagent.get(url + '?limit=2')
-      .end((e, res) => {
+    supertest(App)
+      .get('/api/movies?limit=2')
+      .expect('Content-Type', /json/)
+      .expect(200, (err, res) => {
         expect(res.body.movies.length).to.equal(2);
 
         done();
@@ -45,17 +64,23 @@ describe('Movies Api pagination', () => {
   });
 
   it('Should be able to specify an offset for pagination', (done) => {
-    superagent.get(url + '?page=2')
-      .end((e, res) => {
-        expect(res.body.data.page).to.equal(2);
+    supertest(App)
+      .get('/api/movies')
+      .query({ limit: 2 })
+      .expect('Content-Type', /json/)
+      .expect(200, (err, res) => {
+        expect(res.body.movies.length).to.equal(2);
 
         done();
       });
   });
 
   it('Should be able to paginate with offset', (done) => {
-    superagent.get(url + '?limit=2&page=2')
-      .end((e, res) => {
+    supertest(App)
+      .get('/api/movies')
+      .query({ limit: 2, page: 2 })
+      .expect('Content-Type', /json/)
+      .expect(200, (err, res) => {
         expect(res.body.data.page).to.equal(2);
         expect(res.body.movies.length).to.equal(2);
 
