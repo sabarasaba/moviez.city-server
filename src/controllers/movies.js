@@ -21,8 +21,8 @@ router.get('/', (req, res) => {
         order: [['release_date', 'DESC']]
       }).then(movies => {
         res.json({
-          data: {
-            total: movies.count,
+          meta: {
+            total: Math.ceil(movies.count / parseInt(params.limit, 10)),
             page: parseInt(params.page, 10),
             limit: parseInt(params.limit, 10)
           },
@@ -42,7 +42,9 @@ router.get('/:movie_id', (req, res) => {
       'id': req.params.movie_id
     }
   }).then(movie => {
-    res.json(movie);
+    res.json({
+      movie: movie
+    });
   }).catch(err => {
     res.json(err);
   });
