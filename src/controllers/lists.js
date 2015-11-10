@@ -46,7 +46,7 @@ router.get('/:movie_id', (req, res, next) => {
     });
   } else {
     res.json({
-      'data': list
+      'list': list
     });
   }
 });
