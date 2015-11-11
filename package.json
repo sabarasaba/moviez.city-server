@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "babel-node ./src/bin/www",
-    "debug": "nodemon --ignore 'tests/**/*; worker/**/*' --exec babel-node --experimental -- ./src/bin/www",
+    "debug": "nodemon --ignore 'tests/**/*' --exec babel-node ./src/bin/www",
     "test": "mocha tests/*.js -w --reporter min --compilers js:babel/register"
   },
   "devDependencies": {
