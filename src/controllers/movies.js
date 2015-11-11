@@ -16,9 +16,8 @@ router.get('/', (req, res) => {
 
   models.Movie.findAndCountAll({
         include: [
-          models.Categories,
-          models.Actors,
-          { model: models.Categories, where: category }
+          { model: models.Actors, required: false },
+          { model: models.Categories, where: category, required: false }
         ],
         offset: (params.limit * params.page) - params.limit,
         limit: params.limit,
