@@ -1,8 +1,9 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  var Movie = sequelize.define('Movies', {
+  var Movie = sequelize.define('Movie', {
     title: {type: DataTypes.STRING(400), unique: true},
+    slug: DataTypes.STRING,
     poster_path: DataTypes.STRING,
     backdrop_path: DataTypes.STRING,
     original_language: DataTypes.STRING,

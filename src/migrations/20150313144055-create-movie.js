@@ -13,6 +13,9 @@ module.exports = {
         type: Sequelize.STRING(400),
         unique: true
       },
+      slug: {
+        type: Sequelize.STRING,
+      },
       poster_path: {
         type: Sequelize.STRING
       },
