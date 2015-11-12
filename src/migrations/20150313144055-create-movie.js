@@ -1,44 +1,44 @@
 'use strict';
 
 module.exports = {
-  up: function(migration, DataTypes, done) {
-    migration.createTable('Movie', {
+  up: function(queryInterface, Sequelize) {
+    return queryInterface.createTable('Movies', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       title: {
-        type: DataTypes.STRING(400),
+        type: Sequelize.STRING(400),
         unique: true
       },
       poster_path: {
-        type: DataTypes.STRING
+        type: Sequelize.STRING
       },
       backdrop_path: {
-        type: DataTypes.STRING
+        type: Sequelize.STRING
       },
       original_language: {
-        type: DataTypes.STRING
+        type: Sequelize.STRING
       },
       release_date: {
-        type: DataTypes.DATE
+        type: Sequelize.DATE
       },
       overview: {
-        type: DataTypes.TEXT
+        type: Sequelize.TEXT
       },
       plot: {
-        type: DataTypes.TEXT
+        type: Sequelize.TEXT
       },
       rated: {
-        type: DataTypes.STRING
+        type: Sequelize.STRING
       },
       director: {
-        type: DataTypes.STRING
+        type: Sequelize.STRING
       },
       runtime: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       imdb: {
         type: Sequelize.JSON
@@ -47,25 +47,25 @@ module.exports = {
         type: Sequelize.JSON
       },
       metacritic: {
-        type: DataTypes.INTEGER
+        type: Sequelize.INTEGER
       },
       trailer: {
-        type: DataTypes.STRING(400)
+        type: Sequelize.STRING(400)
       },
       download: {
-        type: DataTypes.JSON
+        type: Sequelize.JSON
       },
       createdAt: {
         allowNull: false,
-        type: DataTypes.DATE
+        type: Sequelize.DATE
       },
       updatedAt: {
         allowNull: false,
-        type: DataTypes.DATE
+        type: Sequelize.DATE
       }
-    }).done(done);
+    });
   },
-  down: function(migration, DataTypes, done) {
-    migration.dropTable('Movie').done(done);
+  down: function(queryInterface, Sequelize) {
+    return queryInterface.dropTable('Movies');
   }
 };

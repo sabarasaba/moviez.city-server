@@ -1,5 +1,7 @@
-export default (sequelize, DataTypes) => {
-  let Movie = sequelize.define('Movie', {
+'use strict';
+
+module.exports = function(sequelize, DataTypes) {
+  var Movie = sequelize.define('Movies', {
     title: {type: DataTypes.STRING(400), unique: true},
     poster_path: DataTypes.STRING,
     backdrop_path: DataTypes.STRING,
@@ -17,7 +19,7 @@ export default (sequelize, DataTypes) => {
     download: DataTypes.JSON
   }, {
     classMethods: {
-      associate: (models) => {
+      associate: function(models) {
         Movie.hasMany(models.Categories);
         Movie.hasMany(models.Actors);
       }

@@ -1,13 +1,14 @@
-export default (sequelize, DataTypes) => {
-  let Categories = sequelize.define('Categories', {
+'use strict';
+
+module.exports = function(sequelize, DataTypes) {
+  var Categories = sequelize.define('Categories', {
     name: DataTypes.STRING
   }, {
     classMethods: {
-      associate: (models) => {
+      associate: function(models) {
         Categories.belongsTo(models.Movie);
       }
     }
   });
-
   return Categories;
 };
