@@ -19,6 +19,11 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      MovieId: {
+        type: Sequelize.INTEGER,
+        references: 'Movies',
+        referencesKey: 'id'
       }
     });
   },
