@@ -23,8 +23,8 @@ describe('Categories Api', () => {
       .expect('Content-Type', /json/)
       .expect(200, (err, res) => {
         expect(res.body).to.have.property('categories');
-        expect(res.body).to.have.property('total');
-        expect(res.body.total).to.be.a('number');
+        expect(res.body).to.have.property('meta');
+        expect(res.body.meta.total).to.be.a('number');
         expect(res.body.categories.length).to.be.above(0);
 
         done();

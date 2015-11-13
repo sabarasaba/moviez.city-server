@@ -28,13 +28,13 @@ describe('Movies Api pagination', () => {
       });
   });
 
-  it('Should have a data attribute with pagination data', (done) => {
+  it('Should have a metea attribute with pagination data', (done) => {
     supertest(App)
       .get('/api/movies')
       .expect('Content-Type', /json/)
       .expect(200, (err, res) => {
-        expect(res.body.data).to.exist;
-        expect(res.body.data).to.be.an('object');
+        expect(res.body.meta).to.exist;
+        expect(res.body.meta).to.be.an('object');
 
         done();
       });
@@ -45,8 +45,8 @@ describe('Movies Api pagination', () => {
       .get('/api/movies')
       .expect('Content-Type', /json/)
       .expect(200, (err, res) => {
-        expect(res.body.data.page).to.equal(1);
-        expect(res.body.data.limit).to.equal(10);
+        expect(res.body.meta.page).to.equal(1);
+        expect(res.body.meta.limit).to.equal(10);
 
         done();
       });
@@ -81,7 +81,7 @@ describe('Movies Api pagination', () => {
       .query({ limit: 2, page: 2 })
       .expect('Content-Type', /json/)
       .expect(200, (err, res) => {
-        expect(res.body.data.page).to.equal(2);
+        expect(res.body.meta.page).to.equal(2);
         expect(res.body.movies.length).to.equal(2);
 
         done();

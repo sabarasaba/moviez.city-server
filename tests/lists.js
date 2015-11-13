@@ -35,8 +35,8 @@ describe('Lists Api', () => {
       .expect('Content-Type', /json/)
       .expect(200, (err, res) => {
         expect(err).to.equal(null);
-        expect(res.body).to.have.property('data');
-        expect(res.body.data.movies.length).to.be.above(0);
+        expect(res.body).to.have.property('list');
+        expect(res.body.list.movies.length).to.be.above(0);
 
         done();
       });

@@ -19,11 +19,11 @@ describe('Movies Api details', () => {
 
   it('Should have the a poster and a backdrop attribute', (done) => {
     supertest(App)
-      .get('/api/movies/1')
+      .get('/api/movies/ted-2')
       .expect('Content-Type', /json/)
       .expect(200, (err, res) => {
-        expect(res.body.poster_path).not.to.be.empty;
-        expect(res.body.backdrop_path).not.to.be.empty;
+        expect(res.body.movie.poster_path).not.to.be.empty;
+        expect(res.body.movie.backdrop_path).not.to.be.empty;
 
         done();
       });
@@ -31,11 +31,11 @@ describe('Movies Api details', () => {
 
   it('Should have the Downloads attribute', (done) => {
     supertest(App)
-      .get('/api/movies/1')
+      .get('/api/movies/ted-2')
       .expect('Content-Type', /json/)
       .expect(200, (err, res) => {
-        expect(res.body.download).not.to.be.empty;
-        expect(res.body.download).to.be.an('object');
+        expect(res.body.movie.download).not.to.be.empty;
+        expect(res.body.movie.download).to.be.an('object');
 
         done();
       });
@@ -43,11 +43,11 @@ describe('Movies Api details', () => {
 
   it('Should have the Categories attribute', (done) => {
     supertest(App)
-      .get('/api/movies/1')
+      .get('/api/movies/ted-2')
       .expect('Content-Type', /json/)
       .expect(200, (err, res) => {
-        expect(res.body.Categories).not.to.be.empty;
-        expect(res.body.Categories).to.be.an('array');
+        expect(res.body.movie.Categories).not.to.be.empty;
+        expect(res.body.movie.Categories).to.be.an('array');
 
         done();
       });
@@ -55,11 +55,11 @@ describe('Movies Api details', () => {
 
   it('Should have the Imdb attribute', (done) => {
     supertest(App)
-      .get('/api/movies/1')
+      .get('/api/movies/ted-2')
       .expect('Content-Type', /json/)
       .expect(200, (err, res) => {
-        expect(res.body.imdb).not.to.be.empty;
-        expect(res.body.imdb).to.be.an('object');
+        expect(res.body.movie.imdb).not.to.be.empty;
+        expect(res.body.movie.imdb).to.be.an('object');
 
         done();
       });
