@@ -4,7 +4,9 @@ import path from 'path';
 let router = express.Router();
 
 router.get('/', (req, res) => {
-  console.log('woop');
+  res.json({
+    greeting: 'hello'
+  });
 });
 
 export default router;
