@@ -23,13 +23,21 @@ router.get('/', (req, res) => {
         limit: params.limit,
         order: [['release_date', 'DESC']]
       }).then(movies => {
-        res.json({
-          meta: {
-            total: Math.ceil(movies.count / parseInt(params.limit, 10)),
-            page: parseInt(params.page, 10),
-            limit: parseInt(params.limit, 10)
-          },
-          movies: movies.rows
+        /**
+         * findAndCountAll with requireds = false, will return the right count number
+         * but wont have the included models when filtering by category or actor. I
+         * suspect is a bug from sequelize, so ill just skip it by counting records
+         * using a new query.
+         */
+        models.Movie.findAndCountAll().then((data) => {
+          res.json({
+            meta: {
+              total: Math.ceil(data.count / parseInt(params.limit, 10)),
+              page: parseInt(params.page, 10),
+              limit: parseInt(params.limit, 10)
+            },
+            movies: movies.rows
+          });
         });
       });
 });
